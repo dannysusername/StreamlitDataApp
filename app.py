@@ -151,3 +151,20 @@ df = load_data(DATA_PATH)
     col2.metric("Avg temperature", f"{view['Temperature (°C)'].mean():.2f} °C")
     col3.metric("Avg salinity", f"{view['Salinity (ppt)'].mean():.2f} ppt")
     col4.metric("Avg dissolved oxygen", f"{view['Dissolved Oxygen (mg/L)'].mean():.2f} mg/L")
+
+    # --- Data Display ---
+    st.header("Data Display")
+    st.markdown(f"Each dot on the map is one reading, coloured by **{param}**.")
+    fig_map = px.scatter_map(
+        view,
+        lat="Latitude",
+        lon="Longitude",
+        color=param,
+        hover_data=["Timestamp"],
+        color_continuous_scale="Viridis",
+        zoom=17,
+        height=500,
+        title=f"Survey path coloured by {param}",
+    )
+    st.plotly_chart(fig_map, width="stretch")
+
