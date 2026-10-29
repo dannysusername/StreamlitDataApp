@@ -2,7 +2,7 @@
 
 **Biscayne Bay Water Quality Explorer is live — just open it in your browser:**
 
-### 👉 https://YOUR-APP-NAME.streamlit.app
+### 👉 https://danielibarra.streamlit.app
 
 No install, no setup, nothing to download. The app opens straight to the survey data. Everything below is for people who want to *develop* the explorer; if you just want to *use* it, the link above is all you need.
 
@@ -68,7 +68,7 @@ The app is hosted on **Streamlit Community Cloud**, linked to this repo's `main`
 
 | Environment | Branch | URL |
 |---|---|---|
-| Production | `main` | https://YOUR-APP-NAME.streamlit.app |
+| Production | `main` | https://danielibarra.streamlit.app |
 
 - ⚠️ **Run the app locally before pushing**, because a push goes live immediately.
 - Cloud installs the packages in `requirements.txt`. A missing package there is the most common cause of a failed deploy.
