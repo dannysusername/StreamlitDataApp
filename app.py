@@ -136,3 +136,18 @@ df = load_data(DATA_PATH)
     if view.empty:
         st.warning("No readings in this time window. Widen the slider.")
         st.stop()
+
+         # --- Overview ---
+    st.title("Biscayne Bay Water Quality")
+    st.header("Overview")
+    st.markdown(
+        "This app explores readings from an autonomous underwater vehicle that surveyed "
+        "Biscayne Bay, Florida, on **February 4, 2022**. A water-quality sensor on board "
+        "recorded temperature, salinity, pH, dissolved oxygen and algae about once per second. "
+        "Use the sidebar to pick a parameter and narrow the time window."
+    )
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Readings", f"{len(view):,}")
+    col2.metric("Avg temperature", f"{view['Temperature (°C)'].mean():.2f} °C")
+    col3.metric("Avg salinity", f"{view['Salinity (ppt)'].mean():.2f} ppt")
+    col4.metric("Avg dissolved oxygen", f"{view['Dissolved Oxygen (mg/L)'].mean():.2f} mg/L")
