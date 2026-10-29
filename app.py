@@ -183,3 +183,22 @@ df = load_data(DATA_PATH)
         st.subheader("Raw data")
         st.dataframe(view)
 
+        # --- Insights ---
+    st.header("Insights")
+    do_min = view["Dissolved Oxygen (mg/L)"].min()
+    temp_do_corr = view["Temperature (°C)"].corr(view["Dissolved Oxygen (mg/L)"])
+    saltiest = view.loc[view["Salinity (ppt)"].idxmax()]
+    st.markdown(
+        f"""
+    - **Oxygen is healthy.** Dissolved oxygen never dropped below **{do_min:.2f} mg/L**, comfortably above the
+      {DO_STRESS_LEVEL:.0f} mg/L level where marine life becomes stressed.
+    - **Salinity varies the most.** It ranged from **{view['Salinity (ppt)'].min():.1f}** to
+      **{view['Salinity (ppt)'].max():.1f} ppt** and peaked at {saltiest['Timestamp']:%H:%M:%S}.
+      Typical seawater is about 35 ppt, so parts of this area are saltier than the open ocean.
+    - **Temperature and oxygen** have a correlation of **{temp_do_corr:.2f}** in this window
+      (−1 = perfectly opposite, +1 = move together).
+    - **Data caveat:** every turbidity reading was negative, which points to a sensor fault, so turbidity is excluded.
+      Negative chlorophyll and algae readings were treated as 0.
+    """
+    )
+
