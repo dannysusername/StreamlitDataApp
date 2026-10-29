@@ -137,7 +137,7 @@ df = load_data(DATA_PATH)
         st.warning("No readings in this time window. Widen the slider.")
         st.stop()
 
-         # --- Overview ---
+    # --- Overview ---
     st.title("Biscayne Bay Water Quality")
     st.header("Overview")
     st.markdown(
@@ -167,4 +167,19 @@ df = load_data(DATA_PATH)
         title=f"Survey path coloured by {param}",
     )
     st.plotly_chart(fig_map, width="stretch")
+
+    trend = view[["Timestamp", param]].copy()
+    trend["60-second average"] = trend[param].rolling(60, center=True, min_periods=1).mean()
+    fig_line = px.line(
+        trend,
+        x="Timestamp",
+        y=[param, "60-second average"],
+        title=f"{param} over time",
+        labels={"Timestamp": "Time (Feb 4, 2022)", "value": param, "variable": "Series"},
+    )
+    st.plotly_chart(fig_line, width="stretch")
+
+    if show_raw:
+        st.subheader("Raw data")
+        st.dataframe(view)
 
